@@ -1,6 +1,6 @@
 A = [6 -2 2 4; 12 -8 6 10; 3 -13 9 3; -6 1 4 -18];
 %A = [1 1; 2 1];
-[L, U] = cholesky(A);
+[L, U] = crout(A);
 disp(L*U == A);
 
 function [L, A] = doolittle(A)
@@ -25,7 +25,7 @@ function [L, A] = doolittle(A)
     end
 end
 
-function [L, U] = cholesky(A)
+function [L, U] = crout(A)
     [L1,U1] = doolittle(A');
     L = U1';
     U = L1';

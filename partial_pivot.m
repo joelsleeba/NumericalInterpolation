@@ -5,7 +5,7 @@ disp(A1)
 disp(b1')
 
 function A = switch_rows(A, x, y)
-    if 0<x<length(A) && 0<y<length(A)
+    if 0<x<length(A(:,1)) && 0<y<length(A(:, 1))
         temp = A(y, :);
         A(y, :) = A(x, :);
         A(x, :) = temp;
