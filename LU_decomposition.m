@@ -1,9 +1,9 @@
 A = [6 -2 2 4; 12 -8 6 10; 3 -13 9 3; -6 1 4 -18];
 %A = [1 1; 2 1];
-[L, U] = LU_decomp(A);
+[L, U] = cholesky(A);
 disp(L*U == A);
 
-function [L, A] = LU_decomp(A)
+function [L, A] = doolittle(A)
     rowlen = length(A(:, 1));
     collen = length(A(1, :));
     L = eye(rowlen, collen);
@@ -23,4 +23,10 @@ function [L, A] = LU_decomp(A)
             A(j, i) = 0;
         end
     end
+end
+
+function [L, U] = cholesky(A)
+    [L1,U1] = doolittle(A');
+    L = U1';
+    U = L1';
 end

@@ -13,9 +13,11 @@ function A = switch_rows(A, x, y)
 end
 
 function [A, b] = part_pivot(A, b)
-    for i = 1:length(A)-1
+    rowlen = length(A(:, 1));
+    collen = length(A(1, :));
+    for i = 1:collen-1
         colmaxindex = i;
-        for j = i+1:length(A)
+        for j = i+1: rowlen
             if abs(A(j, i)) > abs(A(colmaxindex, i))
                 colmaxindex = j;
             end
