@@ -9,13 +9,13 @@ x==x1
 function x = solve(A, b)
     [A1, b1] = scaled_part_pivot(A, b)
     [A2, b2] = gauss_elim(A1, b1);
-    x = back_subs(A2, b2);
+    x = back_subs_up(A2, b2);
 end
 
 function x = solve1(A, b)
     [A1, b1, colperms] = tot_pivot(A, b)
     [A2, b2] = gauss_elim(A1, b1);
-    x = back_subs(A2, b2);
+    x = back_subs_up(A2, b2);
     for i = length(colperms(:,1)):-1:1
         x = switch_cols(x, colperms(i, 1), colperms(i, 2))
     end
@@ -109,12 +109,24 @@ function [A, b, permlist] = tot_pivot(A, b)
     end
 end
 
-function x = back_subs(A, b)
-    size = length(A(1, :));
-    x = zeros(1, size);
-    for i = size:-1:1
+function x = back_sub_up(A, b)
+    collen = length(A(1, :));
+    x = zeros(1, collen);
+    for i = collen:-1:1
         d = b(i);
         for j = i+1:size
+            d = d - A(i, j)*x(j);
+        end
+        x(i) = d/A(i,i);
+    end
+end
+
+function x = back_sub_low(A, b)
+    collen = length(A(1, :));
+    x = zeros(1, collen);
+    for i = 1:collen
+        d = b(i);
+        for j = 1:i-1
             d = d - A(i, j)*x(j);
         end
         x(i) = d/A(i,i);

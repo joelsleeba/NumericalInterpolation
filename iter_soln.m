@@ -3,7 +3,7 @@ b = [-1 3 2];
 x = [1, 2, 0];
 jacobi_soln = jacobi(A, b, x, 100)
 disp((A*jacobi_soln')'-b);
-gauss_soln = gauss_sidel(A, b, x, 100)
+gauss_soln = gauss_seidel(A, b, x, 100)
 disp((A*gauss_soln')'-b);
 
 
@@ -26,7 +26,7 @@ function xnew = jacobi(A, b, x, iter)
     end
 end
      
-function x = gauss_sidel(A, b, x, iter)
+function x = gauss_seidel(A, b, x, iter)
     for s = 1:iter
         for i = 1: length(A(1, :))
             tempsum = 0;
